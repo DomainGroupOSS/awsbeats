@@ -59,8 +59,10 @@ ifneq ($(GOPATH)/src/$(BEAT_GITHUB_REPO),$(GOPATH)/src/github.com/elastic/beats)
 	rm -rf "$$GOPATH/src/github.com/elastic/beats/vendor/github.com/spf13/pflag"
 	go get github.com/spf13/pflag
 endif
+	go get github.com/magefile/mage
+	export mage="/root/go/bin"
 	@cd "$$GOPATH/src/$(BEAT_GO_PKG)" &&\
-	make $(BEAT_NAME) &&\
+	mage build &&\
 	mv $(BEAT_NAME) "$(CURDIR)/target/$(BEAT_NAME)-$(BEATS_VERSION)-go$(GO_VERSION)-$(GO_PLATFORM)"
 else
 	$(error BEATS_VERSION is undefined)
